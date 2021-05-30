@@ -1,5 +1,6 @@
-import screen from 'screen.js';
+import Screen from './screen.js';
+//-------------------This is the screen----------------------//
 
-screen=new screen(document.getElementById('screen'));
+var screen= new Screen(document.getElementById('screen'));
 
 screen.test();
