@@ -40,8 +40,8 @@ class Sky8{
         }
     }
 
-    programToMemory(program){
-        for(let i=0;i<program.length;i++){
+    programToMem(program){
+        for(let i=0; i<program.length;i++){
             this.memory[0x200+i]=program[i];
         }
     }
@@ -67,7 +67,7 @@ class Sky8{
     interpret(instruction){
         this.pc +=2;
         x=(instruction & 0x0F00) >>8;
-        y=(instruction & 0x00f0) >>4;
+        y=(instruction & 0x00F0) >>4;
 
         switch(instruction & 0xF000){
             case 0x0000:
@@ -192,13 +192,11 @@ class Sky8{
             case 0xE000:
                 switch(instruction & 0xF){
                     case 0xE:
-                        //work on it
                         if(this.Keyboard.isKeyPressed[this.v[x]]){
                             this.pc+=2;
                         }
                         break;
                     case 0x1:
-                        //work on it
                         if(!this.Keyboard.isKeyPressed(this.v[x])){
                             this.pc+=2;
                         }

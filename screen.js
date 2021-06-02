@@ -26,7 +26,7 @@ class Screen{
 	}
 
 	fill(){
-		this.context.fillStyle='#000';
+		this.context.fillStyle='grey';
 		this.context.fillRect(0,0,this.canvas.width, this.canvas.height)
 		
 		for(let i=0;i<(col*row);i++){
@@ -42,7 +42,7 @@ class Screen{
 
 
 	test(){
-		this.setPixel(0,0);
+		this.setPixel(10,20);
 		this.setPixel(5,2);
 		this.fill();
 	}
