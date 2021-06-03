@@ -49,8 +49,8 @@ class Sky8{
     cycle(){
         for(let i=0;i<this.speed;i++){
             if(!this.paused){
-                let opcode=(this.memory[this.pc]<<8 |this.memory[this.pc+1]);
-                this.interpret(opcode);
+                let instruction=(this.memory[this.pc]<<8 |this.memory[this.pc+1]);
+                this.interpret(instruction);
             }
         }
         if(!this.paused)
@@ -66,8 +66,8 @@ class Sky8{
     }
     interpret(instruction){
         this.pc +=2;
-        x=(instruction & 0x0F00) >>8;
-        y=(instruction & 0x00F0) >>4;
+        let x=(instruction & 0x0F00) >>8;
+        let y=(instruction & 0x00F0) >>4;
 
         switch(instruction & 0xF000){
             case 0x0000:
@@ -87,7 +87,7 @@ class Sky8{
                 this.pc=(instruction & 0xFFF);
                 break;
             case 0x3000:
-                if(this.v(x)==(instruction & 0xFF)){
+                if(this.v[x]==(instruction & 0xFF)){
                     this.pc+=2;
                 }
                 break;
@@ -104,7 +104,7 @@ class Sky8{
                 this.v[x]=(instruction & 0xFF);
                 break;
             case 0x7000:
-                this.v[x]+=this.v[y];
+                this.v[x]+=(instruction & 0xFF);
                 break;
             case 0x8000:
                 switch(instruction & 0xF){
@@ -138,18 +138,19 @@ class Sky8{
                     case 0x6:
                         //work on it
                         this.v[0xF] = this.v[x] & 0x1;
-                        this.v[x]=(this.v[x])/2;
+                        this.v[x]>>=1;
                         break;
                     case 0x7:
                         this.v[0xF]=0;
                         if(this.v[x]<this.v[y]){
                             this.v[0xF]=1;
                         }
-                        this.v[x]=this.v[y]-this.v[y];
+                        this.v[x]=this.v[y]-this.v[x];
                         break;
                     case 0xE:
                         //work on it
-                        this.v[0xF]=this.v[x] & 0x10;
+                        this.v[0xF]=this.v[x] & 0x80;
+                        this.v[x]<<=1;
                         break;
                 }
             case 0x9000:
@@ -158,7 +159,7 @@ class Sky8{
                 }
                 break;
             case 0xA000:
-                this.v[index]=(instruction & 0x0FFF);
+                this.index=(instruction & 0x0FFF);
                 break;
             case 0xB000:
                 this.pc=(instruction & 0xFFF)+this.v[0];
@@ -168,7 +169,6 @@ class Sky8{
                 this.v[x]=(instruction & 0xFF) & rand;
                 break;
             case 0xD000:
-                //work on it
                 let width = 8;
                 let height = (instruction & 0xF);
                 
@@ -192,7 +192,7 @@ class Sky8{
             case 0xE000:
                 switch(instruction & 0xF){
                     case 0xE:
-                        if(this.Keyboard.isKeyPressed[this.v[x]]){
+                        if(this.Keyboard.isKeyPressed(this.v[x])){
                             this.pc+=2;
                         }
                         break;
@@ -210,7 +210,6 @@ class Sky8{
                         this.v[x]=this.delayTimer;
                         break;
                     case 0x0A:
-                        //work on it
                         this.paused=true;
                         let nextKeyPress=(key)=>{
                             this.v[x]=key;
@@ -226,16 +225,14 @@ class Sky8{
                         this.soundTimer=this.v[x];
                         break;
                     case 0x1E:
-                        this.v[index]+=this.v[x];
+                        this.index+=this.v[x];
                         break;
                     case 0x29:
-                        //work on it
                         this.index=this.v[x]*5;
                         break;
                     case 0x33:
-                        //work on it
                         this.memory[this.index]=parseInt(this.v[x]/100);
-                        this.memory[this.index+1]=parseInt(this.v[x]%100/10);
+                        this.memory[this.index+1]=parseInt((this.v[x]%100)/10);
                         this.memory[this.index+2]=parseInt(this.v[x]%100);
                         break;
                     case 0x55:

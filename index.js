@@ -26,15 +26,15 @@ function load(name){
 	}
 
 	fetch(url).then(res =>res.arrayBuffer())
-				.then(buffer =>{
-					const program=new Uint8Array(buffer);
-					fpsGap=1000/FPS;
-					then=Date.now();
-					startTime=then;
-					sky8.spritesToMem();
-					sky8.programToMem(program);
-					loop=requestAnimationFrame(step);
-	})
+		.then(buffer =>{
+			const program=new Uint8Array(buffer);
+			fpsGap=1000/FPS;
+			then=Date.now();
+			startTime=then;
+			sky8.spritesToMem();
+			sky8.programToMem(program);
+			loop=requestAnimationFrame(step);
+	});
 }
 
-load('PICTURE');
+load('BRICK');

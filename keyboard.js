@@ -19,7 +19,7 @@ class Keyboard {
             86: 0xF  // V F
         };
 
-        this.keyPress= [];
+        this.keyPress=[];
         this.onNextKeyPress = null;
 
         window.addEventListener("keydown",this.onKeyDown.bind(this),false);
@@ -35,7 +35,7 @@ class Keyboard {
         this.keyPress[key]=true;
 
 
-        if(this.onNextKeyPress!=null && key){
+        if(this.onNextKeyPress!==null && key){
             this.onNextKeyPress(parseInt(key));
             this.onNextKeyPress=null;
         }
