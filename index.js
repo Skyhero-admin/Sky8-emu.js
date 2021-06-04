@@ -46,4 +46,4 @@ function load(name){
 	})
 }
 
-load('TANK');
+load('BLITZ');

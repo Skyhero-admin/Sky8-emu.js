@@ -263,7 +263,7 @@ class Sky8{
                     case 0x33:
                         this.memory[this.index]=parseInt(this.v[x]/100);
                         this.memory[this.index+1]=parseInt((this.v[x]%100)/10);
-                        this.memory[this.index+2]=parseInt(this.v[x]%100);
+                        this.memory[this.index+2]=parseInt(this.v[x]%10);
                         console.log(instruction,this.pc)
                         break;
                     case 0x55:
