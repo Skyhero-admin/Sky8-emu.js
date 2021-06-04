@@ -6,4 +6,3 @@ References I used:
 <br>
 http://devernay.free.fr/hacks/chip8/C8TECH10.HTM
 <br>
-https://www.freecodecamp.org/news/creating-your-very-own-chip-8-emulator/
