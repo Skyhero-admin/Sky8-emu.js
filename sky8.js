@@ -130,7 +130,7 @@ class Sky8{
                         this.v[x]^= this.v[y];
                         break;
                     case 0x4:
-                        let add=this.v[x]+=this.v[y];
+                        let add=this.v[x]+this.v[y];
                         this.v[0xF]=0;
 
                         if(add>0xFF){
