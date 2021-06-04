@@ -26,7 +26,7 @@ class Screen{
 	}
 
 	fill(){
-		this.context.fillStyle='gray';
+		this.context.fillStyle='black';
 		this.context.fillRect(0,0,this.canvas.width, this.canvas.height)
 		
 		for(let i=0;i<(col*row);i++){
@@ -34,7 +34,7 @@ class Screen{
 			let y=Math.floor(i/col)*scale;
 
 			if(this.display[i]==1){
-				this.context.fillStyle='#FFF';
+				this.context.fillStyle='green';
 				this.context.fillRect(x,y,scale,scale);
 			}
 		}

@@ -4,7 +4,7 @@ import Keyboard from './keyboard.js';
 
 
 var FPS=60;
-let loop, fpsGap, startTime, now, then, elapsed;
+var loop, fpsGap, startTime, now, then, elapsed;
 
 const screen= new Screen(document.getElementById('screen'));
 const keyboard=new Keyboard();
