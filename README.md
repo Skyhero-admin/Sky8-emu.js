@@ -5,5 +5,6 @@ I started making this as it seemed like a fun project to work on and also becaus
 
 References I used:
 <br>
-http://devernay.free.fr/hacks/chip8/C8TECH10.HTM
+[Chip-8 specs guide](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM)
 <br>
+[Article on how to](https://www.freecodecamp.org/news/creating-your-very-own-chip-8-emulator/)
