@@ -11,8 +11,8 @@ class Sky8{
         this.sp=0;
         this.delayTimer=0;
         this.soundTimer=0;
-        this.Keyboard=Keyboard;
-        this.Screen=Screen;
+        this.keyboard=Keyboard;
+        this.screen=Screen;
         this.paused=false;
         this.speed=10;
     }
@@ -49,14 +49,14 @@ class Sky8{
     cycle(){
         for(let i=0;i<this.speed;i++){
             if(!this.paused){
-                let instruction=(this.memory[this.pc]<<8 |this.memory[this.pc+1]);
-                this.interpret(instruction);
+                let opcode=(this.memory[this.pc]<<8 |this.memory[this.pc+1]);
+                this.interpret(opcode);
             }
         }
         if(!this.paused)
             this.updateTimer();
         //work on it this.sound();
-        this.Screen.fill();
+        this.screen.fill();
     }
     updateTimer(){
         if(this.delayTimer>0)
@@ -73,23 +73,28 @@ class Sky8{
             case 0x0000:
                 switch(instruction){
                     case 0x00E0:
-                        this.Screen.clearscr();
+                        this.screen.clearscr();
+                        console.log(instruction,this.pc)
                         break;
                     case 0x0EE:
                         this.pc=this.stack.pop();
                 }
+                console.log(instruction,this.pc)
                 break;
             case 0x1000:
                 this.pc=instruction & 0xFFF;
+                console.log(instruction,this.pc)
                 break;
             case 0x2000:
                 this.stack.push(this.pc);
                 this.pc=(instruction & 0xFFF);
+                console.log(instruction,this.pc)
                 break;
             case 0x3000:
                 if(this.v[x]==(instruction & 0xFF)){
                     this.pc+=2;
                 }
+                console.log(instruction,this.pc)
                 break;
             case 0x4000:
                 if(this.v[x] !=(instruction & 0xFF)){
@@ -99,17 +104,21 @@ class Sky8{
                 if(this.v[x]==this.v[y]){
                     this.pc+=2;
                 }
+                console.log(instruction,this.pc)
                 break;
             case 0x6000:
                 this.v[x]=(instruction & 0xFF);
+                console.log(instruction,this.pc)
                 break;
             case 0x7000:
                 this.v[x]+=(instruction & 0xFF);
+                console.log(instruction,this.pc)
                 break;
             case 0x8000:
                 switch(instruction & 0xF){
                     case 0x0:
                         this.v[x]==this.v[y];
+                        console.log(instruction,this.pc)
                         break;
                     case 0x1:
                         this.v[x]=this.v[x] | this.v[y];
@@ -125,6 +134,7 @@ class Sky8{
                             this.v[0xF]=1;
                         }
                         this.v[x]=sum;
+                        console.log(instruction,this.pc)
                         break;
                     case 0x5:
                         let sub=this.v[x]-this.v[y];
@@ -134,11 +144,13 @@ class Sky8{
                             this.v[0xF]=0;
                         }
                         this.v[x]=sub;
+                        console.log(instruction,this.pc)
                         break;
                     case 0x6:
                         //work on it
                         this.v[0xF] = this.v[x] & 0x1;
                         this.v[x]>>=1;
+                        console.log(instruction,this.pc)
                         break;
                     case 0x7:
                         this.v[0xF]=0;
@@ -146,27 +158,33 @@ class Sky8{
                             this.v[0xF]=1;
                         }
                         this.v[x]=this.v[y]-this.v[x];
+                        console.log(instruction,this.pc)
                         break;
                     case 0xE:
                         //work on it
                         this.v[0xF]=this.v[x] & 0x80;
                         this.v[x]<<=1;
+                        console.log(instruction,this.pc)
                         break;
                 }
             case 0x9000:
                 if(this.v[x]!=this.v[y]){
                     this.pc+=2;
                 }
+                console.log(instruction,this.pc)
                 break;
             case 0xA000:
                 this.index=(instruction & 0x0FFF);
+                console.log(instruction,this.pc)
                 break;
             case 0xB000:
                 this.pc=(instruction & 0xFFF)+this.v[0];
+                console.log(instruction,this.pc)
                 break;
             case 0xC000:
                 let rand=Math.floor(Math.random()*0xFF);
                 this.v[x]=(instruction & 0xFF) & rand;
+                console.log(instruction,this.pc)
                 break;
             case 0xD000:
                 let width = 8;
@@ -179,7 +197,7 @@ class Sky8{
 
                     for(let col = 0; col < width; col++) {
                         if((sprite & 0x80) > 0) {
-                            if(this.Screen.setPixel(this.v[x] + col, this.v[y] + row)) {
+                            if(this.screen.setPixel(this.v[x] + col, this.v[y] + row)) {
                                 this.v[0xF] = 1;
                             }
                         }
@@ -188,18 +206,21 @@ class Sky8{
                 }
 
 
+                console.log(instruction,this.pc)
                 break;
             case 0xE000:
                 switch(instruction & 0xF){
                     case 0xE:
-                        if(this.Keyboard.isKeyPressed(this.v[x])){
+                        if(this.keyboard.isKeyPressed(this.v[x])){
                             this.pc+=2;
                         }
+                        console.log(instruction,this.pc)
                         break;
                     case 0x1:
-                        if(!this.Keyboard.isKeyPressed(this.v[x])){
+                        if(!this.keyboard.isKeyPressed(this.v[x])){
                             this.pc+=2;
                         }
+                        console.log(instruction,this.pc)
                         break;
                     default:
                         throw new Error("BAD OPCODE");
@@ -208,6 +229,7 @@ class Sky8{
                 switch(instruction & 0xFF){
                     case 0x07:
                         this.v[x]=this.delayTimer;
+                        console.log(instruction,this.pc)
                         break;
                     case 0x0A:
                         this.paused=true;
@@ -216,40 +238,48 @@ class Sky8{
                             this.paused=false;
                         };
 
-                        this.Keyboard.onNextKeyPress=nextKeyPress.bind(this);
+                        this.keyboard.onNextKeyPress=nextKeyPress.bind(this);
+                        console.log(instruction,this.pc)
                         break;
                     case 0x15:
                         this.delayTimer=this.v[x];
+                        console.log(instruction,this.pc)
                         break;
                     case 0x18:
                         this.soundTimer=this.v[x];
+                        console.log(instruction,this.pc)
                         break;
                     case 0x1E:
                         this.index+=this.v[x];
+                        console.log(instruction,this.pc)
                         break;
                     case 0x29:
                         this.index=this.v[x]*5;
+                        console.log(instruction,this.pc)
                         break;
                     case 0x33:
                         this.memory[this.index]=parseInt(this.v[x]/100);
                         this.memory[this.index+1]=parseInt((this.v[x]%100)/10);
                         this.memory[this.index+2]=parseInt(this.v[x]%100);
+                        console.log(instruction,this.pc)
                         break;
                     case 0x55:
                         for(let i=0;i<=x;i++){
                             this.memory[this.index+i]=this.v[i];
                         }
+                        console.log(instruction,this.pc)
                         break;
                     case 0x65:
                         for(let i=0;i<=x;i++){
                             this.v[i]=this.memory[this.index+i];
                         }
+                        console.log(instruction,this.pc)
                         break;
                     default:
                         throw new Error("0xF BAD OPCODE "+instruction);
-                        break;
 
                 }
+                console.log(instruction,this.pc)
                 break;
             default:
              throw new Error("BAD OPCODE");

@@ -37,4 +37,4 @@ function load(name){
 	});
 }
 
-load('BRICK');
+load('SPACE-INVADER');
