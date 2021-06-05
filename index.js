@@ -37,4 +37,4 @@ function load(name){
 	})
 }
 
-load('SPACE-INVADER');
+load('keypad.ch8');
