@@ -37,4 +37,4 @@ function load(name){
 	})
 }
 
-load('test_opcode.ch8');
+load('keypad.ch8');
