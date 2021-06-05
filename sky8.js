@@ -78,6 +78,7 @@ class Sky8{
                         break;
                     case 0x0EE:
                         this.pc=this.stack.pop();
+                        break;
                 }
                 console.log(instruction,this.pc)
                 break;
@@ -100,6 +101,8 @@ class Sky8{
                 if(this.v[x] !=(instruction & 0xFF)){
                     this.pc+=2;
                 }
+                console.log(instruction,this.pc)
+                break;
             case 0x5000:
                 if(this.v[x]==this.v[y]){
                     this.pc+=2;
@@ -117,7 +120,7 @@ class Sky8{
             case 0x8000:
                 switch(instruction & 0xF){
                     case 0x0:
-                        this.v[x]==this.v[y];
+                        this.v[x]=this.v[y];
                         console.log(instruction,this.pc)
                         break;
                     case 0x1:
@@ -127,7 +130,7 @@ class Sky8{
                         this.v[x]=this.v[x] & this.v[y];
                         break;
                     case 0x3:
-                        this.v[x]^= this.v[y];
+                        this.v[x]=this.v[x] ^ this.v[y];
                         break;
                     case 0x4:
                         let add=this.v[x]+this.v[y];
@@ -152,7 +155,7 @@ class Sky8{
                     case 0x6:
                         //work on it
                         this.v[0xF] = this.v[x] & 0x1;
-                        this.v[x]>>=1;
+                        this.v[x] >>=1;
                         console.log(instruction,this.pc)
                         break;
                     case 0x7:
@@ -166,7 +169,7 @@ class Sky8{
                     case 0xE:
                         //work on it
                         this.v[0xF]=this.v[x] & 0x80;
-                        this.v[x]<<=1;
+                        this.v[x] <<=1;
                         console.log(instruction,this.pc)
                         break;
                 }
@@ -228,6 +231,7 @@ class Sky8{
                     default:
                         throw new Error("BAD OPCODE");
                 }
+                break;
             case 0xF000:
                 switch(instruction & 0xFF){
                     case 0x07:

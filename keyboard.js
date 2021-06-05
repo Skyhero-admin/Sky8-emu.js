@@ -14,7 +14,7 @@ class Keyboard {
             68: 0x9, // D 9
             70: 0xE, // F E
             90: 0xA, // Z A
-            88: 0x0, // X 0
+            18: 0x0, // X 0
             67: 0xB, // C B
             86: 0xF  // V F
         };
