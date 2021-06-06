@@ -172,7 +172,10 @@ class Sky8{
                         this.v[x] <<=1;
                         console.log(instruction,this.pc)
                         break;
+                        default:
+                            throw new Error('BAD OPCODE');
                 }
+                break;
             case 0x9000:
                 if(this.v[x]!=this.v[y]){
                     this.pc+=2;
@@ -198,12 +201,12 @@ class Sky8{
                 
                 this.v[0xF] = 0;
 
-                for(let row = 0; row < height; row++) {
-                    let sprite = this.memory[this.index + row];
+                for(let rows = 0; rows < height; rows++) {
+                    let sprite = this.memory[this.index + rows];
 
-                    for(let col = 0; col < width; col++) {
+                    for(let cols = 0; cols < width; cols++) {
                         if((sprite & 0x80) > 0) {
-                            if(this.screen.setPixel(this.v[x] + col, this.v[y] + row)) {
+                            if(this.screen.setPixel(this.v[x] + cols, this.v[y] + rows)) {
                                 this.v[0xF] = 1;
                             }
                         }

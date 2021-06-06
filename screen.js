@@ -1,6 +1,6 @@
 const col=64;
 const row=32;
-const scale=15;
+const scale=30;
 
 class Screen{
 	constructor(canvas){

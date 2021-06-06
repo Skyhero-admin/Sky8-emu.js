@@ -8,7 +8,7 @@ var loop, fpsGap, startTime, now, then, elapsed;
 
 const screen= new Screen(document.getElementById('screen'));
 const keyboard=new Keyboard();
-const sky8=new Sky8(screen,keyboard);
+const sky8=new Sky8(screen, keyboard);
 
 
 function load(name){
