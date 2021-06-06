@@ -40,4 +40,4 @@ function load(name){
 	})
 }
 
-load('SPACE-INVADER');
+load('TICTAC');
