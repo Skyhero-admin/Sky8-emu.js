@@ -10,6 +10,9 @@ const screen= new Screen(document.getElementById('screen'));
 const keyboard=new Keyboard();
 const sky8=new Sky8(screen, keyboard);
 
+window.cancelAnimationFrame(loop);
+
+
 
 function load(name){
 	let url=`./games/${name}`;
