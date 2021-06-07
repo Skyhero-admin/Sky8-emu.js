@@ -4,7 +4,7 @@ import Keyboard from './keyboard.js';
 
 
 var FPS=60;
-var loop, fpsGap, startTime, now, then, elapsed;
+var loop, fpsGap, now, then, elapsed;
 
 const screen= new Screen(document.getElementById('screen'));
 const keyboard=new Keyboard();
@@ -33,11 +33,10 @@ function load(name){
 		const program=new Uint8Array(buffer);
 		fpsGap=1000/FPS;
 		then=Date.now();
-		startTime=then;
 		sky8.spritesToMem();
 		sky8.programToMem(program);
 		loop=requestAnimationFrame(step);
 	})
 }
 
-load('TICTAC');
+load('BRICK');

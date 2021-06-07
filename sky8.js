@@ -1,3 +1,5 @@
+/* eslint-disable no-case-declarations */
+
 const mem=4096;
 const registers=16;
 
