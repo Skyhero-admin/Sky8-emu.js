@@ -4,17 +4,32 @@ import Keyboard from './keyboard.js';
 
 
 var FPS=60;
-var loop, fpsGap, now, then, elapsed;
+let loop, fpsGap, now, then, elapsed, startTime;
 
-const screen= new Screen(document.getElementById('screen'));
-const keyboard=new Keyboard();
-const sky8=new Sky8(screen, keyboard);
 
-window.cancelAnimationFrame(loop);
+const gameSelection=document.getElementById('rom');
+gameSelection.addEventListener('change',()=>{
+	const game=gameSelection.options[gameSelection.selectedIndex].value;
+	console.log(game);
+	load(game);
+})
 
+const resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', () => {
+    console.log("click")
+    const game = gameSelection.options[gameSelection.selectedIndex].value;
+    console.log(game);
+    load(game);
+})
 
 
 function load(name){
+	const screen= new Screen(document.getElementById('screen'));
+	const keyboard=new Keyboard();
+	const sky8=new Sky8(screen, keyboard);
+	window.cancelAnimationFrame(loop);
+
+
 	let url=`./games/${name}`;
 
 	function step(){
@@ -27,16 +42,19 @@ function load(name){
 
 		loop=requestAnimationFrame(step);
 	}
+	resetButton.disabled=true;
+
 
 	fetch(url).then(res =>res.arrayBuffer())
 	.then(buffer=>{
 		const program=new Uint8Array(buffer);
 		fpsGap=1000/FPS;
 		then=Date.now();
+		startTime = then;
+		resetButton.disabled=false;
 		sky8.spritesToMem();
 		sky8.programToMem(program);
 		loop=requestAnimationFrame(step);
 	})
 }
-
-load('BRICK');
+load('INVADERS');
