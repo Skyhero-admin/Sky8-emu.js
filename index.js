@@ -4,7 +4,7 @@ import Keyboard from './keyboard.js';
 
 
 var FPS=60;
-let loop, fpsGap, now, then, elapsed, startTime;
+let loop, fpsGap, now, then, elapsed;
 
 
 const gameSelection=document.getElementById('rom');
@@ -50,7 +50,6 @@ function load(name){
 		const program=new Uint8Array(buffer);
 		fpsGap=1000/FPS;
 		then=Date.now();
-		startTime = then;
 		resetButton.disabled=false;
 		sky8.spritesToMem();
 		sky8.programToMem(program);
