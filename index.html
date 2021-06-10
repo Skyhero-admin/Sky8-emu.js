@@ -4,13 +4,21 @@
 	<meta charset="utf-8">
 	<title>Sky8-emu</title>
 </head>
-<body style="background: black;width: 100vw;padding: 0px;margin: 0px;">
-	<h1 style="text-align: center;font-size: 30px;color: green;font-family: monospace;">
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+</style>
+<body style="background: black;padding: 0px;margin: 0px;">
+	<header style="background:#1b1b32;">
+		<h1 style="text-align: center;font-size: 30px;color: white;font-family: monospace;padding: 15px;">
 		🔥 SKY8-emu 🥷
-	</h1>
-	<main style="display: flex;">
-		<canvas id="screen" style="border: 2px solid green;width:60%;margin: 0 5% 0 5%;"></canvas>
-		<div id="keypad" style="color:green;padding-right:20px;font-size: 1rem;width:auto;right:0px">
+		</h1>
+	</header>
+	<main style="display: flex;margin-top: 50px;">
+		<canvas id="screen" style="border: 2px solid white;width:60%;margin: 0 5% 0 5%;"></canvas>
+		<div id="keypad" style="color:white;font-size: 1rem;width:auto;right:0px;">
 			<pre>
 The keys are mapped like this
 
@@ -36,7 +44,7 @@ The keys are mapped like this
 			</pre>
 		</div>
 	</main>
-	<select id="rom" style="color:green;background:black;padding: 5px;font-size: 1rem;margin: 20px;margin-left: 5%;border: 2px solid green;">
+	<select id="rom" style="color:white;background:#1b1b32;padding: 5px;font-size: 1rem;margin: 20px;margin-left: 5%;border: 2px solid white;">
 		<option value="INVADERS">Space Invaders</option>
 		<option value="MAZE">Maze</option>
 		<option value="TETRIS">Tetris</option>
@@ -49,10 +57,10 @@ The keys are mapped like this
 		<option value="MISSILE">Missile</option>
 		<option value="BRIX">Brix</option>
 	</select>
-	<button id="reset" style="color:green;background:black;padding: 5px;font-size: 1rem;margin: 20px;border:2px solid green;">
+	<button id="reset" style="color:white;background:#1b1b32;padding: 5px;font-size: 1rem;margin: 20px;border:2px solid white;">
 		Reload
 	</button>
-	<footer style="text-align:center;color: green;"><a href="https://github.com/Skyhero-admin/Sky8-emu.js">See source</a></footer>
+	<footer style="text-align:center;color: white;"><a href="https://github.com/Skyhero-admin/Sky8-emu.js">See source</a></footer>
 
 </body>
 <script type="module" src="index.js"></script>
